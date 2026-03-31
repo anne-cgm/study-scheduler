@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@../style/style.css"
+            fx:controller="com.acgm.studyscheduler.controller.TaskController">
+
+    <center>
+        <VBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 40;">
+
+            <!-- ================= TÍTULO ================= -->
+            <Label text="STUDY SCHEDULER"
+                   style="-fx-font-size: 32px;
+                          -fx-font-weight: bold;" />
+
+            <!-- ================= CARDS ================= -->
+            <HBox spacing="20" alignment="CENTER">
+
+                <VBox fx:id="totalCard" spacing="5" alignment="CENTER" styleClass="card">
+                    <Label fx:id="totalLabel" text="0" />
+                    <Label text="TOTAL"/>
+                </VBox>
+
+                <VBox fx:id="completedCard" spacing="5" alignment="CENTER" styleClass="card">
+                    <Label fx:id="completedLabel" text="0" />
+                    <Label text="CONCLUÍDAS"/>
+                </VBox>
+
+                <VBox fx:id="overdueCard" spacing="5" alignment="CENTER" styleClass="card">
+                    <Label fx:id="overdueLabel" text="0" />
+                    <Label text="ATRASADAS"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- ================= ADICIONAR TAREFA ================= -->
+            <HBox spacing="15" alignment="CENTER">
+
+                <TextField fx:id="taskField"
+                           promptText="Adicionar tarefa"
+                           prefWidth="400"
+                           prefHeight="45"/>
+
+                <DatePicker fx:id="datePicker"
+                            prefHeight="45"/>
+
+                <Button text="+"
+                        prefHeight="45"
+                        prefWidth="50"
+                        onAction="#handleAddTask"/>
+
+            </HBox>
+
+            <!-- ================= TAGS FILTRO ================= -->
+            <HBox spacing="15" alignment="CENTER">
+
+                <Button text="Todas" styleClass="tag-button"/>
+                <Button text="Concluídas" styleClass="tag-button"/>
+                <Button text="Atrasadas" styleClass="tag-button"/>
+
+            </HBox>
+
+            <!-- ================= QUADRO BRANCO ================= -->
+            <VBox prefWidth="700"
+                  prefHeight="420"
+                  style="-fx-background-color: white;
+                         -fx-background-radius: 20;
+                         -fx-padding: 25;">
+
+                <ListView fx:id="taskList"
+                          prefHeight="380"/>
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
