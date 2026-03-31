@@ -1,4 +1,4 @@
-package com.acgm.studyscheduler.model;
+package studyscheduler.model;
 
 import java.time.LocalDate;
 

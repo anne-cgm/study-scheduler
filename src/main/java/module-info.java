@@ -1,16 +1,14 @@
 module com.acgm.studyscheduler {
+
+    // Dependências do JavaFX
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
+    requires java.base;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires net.synedra.validatorfx;
-    requires org.kordamp.ikonli.javafx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
-    requires com.almasb.fxgl.all;
+    // Permitir que o FXMLLoader acesse os pacotes de view e controller
+    opens studyscheduler.view to javafx.fxml;
+    opens studyscheduler.controller to javafx.fxml;
 
-    opens com.acgm.studyscheduler to javafx.fxml;
-    exports com.acgm.studyscheduler;
+    // Se você quiser deixar Main público (não obrigatório)
+    exports studyscheduler;
 }

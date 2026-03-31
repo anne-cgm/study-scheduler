@@ -6,7 +6,7 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             stylesheets="@../style/style.css"
-            fx:controller="com.acgm.studyscheduler.controller.TaskController">
+            fx:controller="studyscheduler.controller.TaskController">
 
     <center>
         <VBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 40;">

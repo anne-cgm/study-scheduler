@@ -1,10 +1,10 @@
-package com.acgm.studyscheduler.controller;
+package studyscheduler.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import com.acgm.studyscheduler.model.Task;
+import studyscheduler.model.Task;
 
 import java.time.LocalDate;
 
