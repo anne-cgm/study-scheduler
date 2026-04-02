@@ -22,12 +22,39 @@
 
 .tag-button {
     -fx-background-color: #e8e8ff;
+    -fx-text-fill: #000000;
     -fx-background-radius: 20;
     -fx-padding: 6 18 6 18;
-    -fx-font-size: 13px;
-    -fx-cursor: hand;
+}
+
+.tag-success {
+    -fx-background-color: #c8f7c5;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 20;
+    -fx-padding: 6 18 6 18;
+}
+
+.tag-danger {
+    -fx-background-color: #ffd6d6;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 20;
+    -fx-padding: 6 18 6 18;
+}
+.tag-todo {
+    -fx-background-color: #c0ddf0;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 20;
+    -fx-padding: 6 18 6 18;
 }
 
 .tag-button:hover {
     -fx-background-color: #d4d4ff;
 }
+
+.main-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a7d8ff; /* azul bebê */
+    -fx-effect: dropshadow(gaussian, black, 0, 0, 1, 1);
+}
+

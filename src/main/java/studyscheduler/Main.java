@@ -10,11 +10,11 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(
+        FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/studyscheduler/view/main-view.fxml")
         );
 
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        Scene scene = new Scene(loader.load(), 800, 600);
 
         stage.setTitle("Study Scheduler");
         stage.setScene(scene);

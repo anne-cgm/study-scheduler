@@ -11,59 +11,76 @@
     <center>
         <VBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 40;">
 
-            <!-- ================= TÍTULO ================= -->
+            <!-- TÍTULO -->
             <Label text="STUDY SCHEDULER"
-                   style="-fx-font-size: 32px;
-                          -fx-font-weight: bold;" />
+                   styleClass="main-title"/>
 
-            <!-- ================= CARDS ================= -->
+            <!-- CARDS -->
             <HBox spacing="20" alignment="CENTER">
 
-                <VBox fx:id="totalCard" spacing="5" alignment="CENTER" styleClass="card">
-                    <Label fx:id="totalLabel" text="0" />
+                <VBox spacing="5" alignment="CENTER" styleClass="card">
+                    <Label fx:id="totalLabel" text="0"/>
                     <Label text="TOTAL"/>
                 </VBox>
 
-                <VBox fx:id="completedCard" spacing="5" alignment="CENTER" styleClass="card">
-                    <Label fx:id="completedLabel" text="0" />
+                <VBox spacing="5" alignment="CENTER" styleClass="card">
+                    <Label fx:id="completedLabel" text="0"/>
                     <Label text="CONCLUÍDAS"/>
                 </VBox>
 
-                <VBox fx:id="overdueCard" spacing="5" alignment="CENTER" styleClass="card">
-                    <Label fx:id="overdueLabel" text="0" />
+                <VBox spacing="5" alignment="CENTER" styleClass="card">
+                    <Label fx:id="overdueLabel" text="0"/>
                     <Label text="ATRASADAS"/>
                 </VBox>
 
             </HBox>
 
-            <!-- ================= ADICIONAR TAREFA ================= -->
+            <!-- ADICIONAR TAREFA (TUDO NA MESMA LINHA) -->
             <HBox spacing="15" alignment="CENTER">
 
                 <TextField fx:id="taskField"
                            promptText="Adicionar tarefa"
-                           prefWidth="400"
+                           prefWidth="220"
+                           prefHeight="45"/>
+
+                <TextField fx:id="descriptionField"
+                           promptText="Adicionar descrição (opcional)"
+                           prefWidth="180"
                            prefHeight="45"/>
 
                 <DatePicker fx:id="datePicker"
+                            promptText="Adicionar data de entrega"
                             prefHeight="45"/>
 
                 <Button text="+"
-                        prefHeight="45"
                         prefWidth="50"
+                        prefHeight="45"
                         onAction="#handleAddTask"/>
 
             </HBox>
 
-            <!-- ================= TAGS FILTRO ================= -->
+            <!-- FILTROS -->
             <HBox spacing="15" alignment="CENTER">
 
-                <Button text="Todas" styleClass="tag-button"/>
-                <Button text="Concluídas" styleClass="tag-button"/>
-                <Button text="Atrasadas" styleClass="tag-button"/>
+                <Button text="Todas"
+                        styleClass="tag-button"
+                        onAction="#filterAll"/>
+
+                <Button text="Não concluídas"
+                        styleClass="tag-todo"
+                        onAction="#filterTodo"/>
+
+                <Button text="Concluídas"
+                        styleClass="tag-success"
+                        onAction="#filterCompleted"/>
+
+                <Button text="Atrasadas"
+                        styleClass="tag-danger"
+                        onAction="#filterOverdue"/>
 
             </HBox>
 
-            <!-- ================= QUADRO BRANCO ================= -->
+            <!-- LISTA -->
             <VBox prefWidth="700"
                   prefHeight="420"
                   style="-fx-background-color: white;
