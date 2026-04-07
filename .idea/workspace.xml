@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010806ec-0a4f-4335-9049-d00f8b497da1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/tasks.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/studyscheduler/model/TaskTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/studyscheduler/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/model/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/tasks.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/tasks.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks.dat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +54,7 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "Batch.mvnw.executor": "Run",
+    "JUnit.TaskTest.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -111,7 +114,7 @@
       <workItem from="1775491700587" duration="346000" />
       <workItem from="1775577299783" duration="6535000" />
       <workItem from="1775585561068" duration="157000" />
-      <workItem from="1775585735128" duration="2820000" />
+      <workItem from="1775585735128" duration="5645000" />
     </task>
     <servers />
   </component>

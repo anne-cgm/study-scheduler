@@ -22,15 +22,37 @@ public class Task implements Serializable {
         this(title, null, dueDate);
     }
 
-    public String getTitle() { return title; }
-    public String getDescription() { return description; }
-    public LocalDate getDueDate() { return dueDate; }
-    public boolean isCompleted() { return completed; }
+    public String getTitle() {
+        return title;
+    }
 
-    public void setTitle(String title) { this.title = title; }
-    public void setDescription(String description) { this.description = description; }
-    public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
-    public void setCompleted(boolean completed) { this.completed = completed; }
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
 
     public boolean isOverdue() {
         return dueDate != null &&
