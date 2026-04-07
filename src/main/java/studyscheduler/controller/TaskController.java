@@ -1,17 +1,10 @@
 package studyscheduler.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import studyscheduler.model.Task;
-
-import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import studyscheduler.service.TaskService;
 
 public class TaskController {
 
@@ -23,22 +16,14 @@ public class TaskController {
     @FXML private Label completedLabel;
     @FXML private Label overdueLabel;
 
-    private final ObservableList<Task> masterList = FXCollections.observableArrayList();
-
-    private static final String FILE_NAME = "tasks.dat";
+    private final TaskService service = new TaskService();
 
     @FXML
     public void initialize() {
-        loadTasks();
-        taskList.setItems(masterList);
+        taskList.setItems(service.getTasks());
         configureCells();
-        sortByDate();
         updateCounters();
     }
-
-    // =====================================================
-    // LISTVIEW
-    // =====================================================
 
     private void configureCells() {
 
@@ -51,7 +36,9 @@ public class TaskController {
                     Task task = getItem();
                     if (task != null) {
                         task.setCompleted(checkBox.isSelected());
-                        refreshAll();
+                        service.refresh();
+                        updateCounters();
+                        taskList.refresh();
                     }
                 });
             }
@@ -92,8 +79,8 @@ public class TaskController {
 
                 MenuItem delete = new MenuItem("Excluir");
                 delete.setOnAction(e -> {
-                    masterList.remove(task);
-                    refreshAll();
+                    service.removeTask(task);
+                    updateCounters();
                 });
 
                 setContextMenu(new ContextMenu(edit, delete));
@@ -102,39 +89,29 @@ public class TaskController {
         });
     }
 
-    // =====================================================
-    // ADICIONAR
-    // =====================================================
-
     @FXML
     private void handleAddTask() {
 
         String title = taskField.getText();
         if (title == null || title.isBlank()) return;
 
-        masterList.add(new Task(
-                title.trim(),
+        service.addTask(
+                title,
                 descriptionField.getText(),
                 datePicker.getValue()
-        ));
+        );
 
         taskField.clear();
         descriptionField.clear();
         datePicker.setValue(null);
 
-        refreshAll();
+        updateCounters();
     }
-
-    // =====================================================
-    // EDITAR
-    // =====================================================
 
     private void openEditDialog(Task task) {
 
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Editar tarefa");
-        dialog.setHeaderText(null);
-        dialog.getDialogPane().setGraphic(null);
 
         ButtonType saveButton =
                 new ButtonType("Salvar", ButtonBar.ButtonData.OK_DONE);
@@ -146,8 +123,6 @@ public class TaskController {
         TextArea descriptionArea =
                 new TextArea(task.getDescription() == null ? "" : task.getDescription());
         DatePicker editDatePicker = new DatePicker(task.getDueDate());
-
-        descriptionArea.setPrefHeight(80);
 
         VBox content = new VBox(12,
                 new Label("Título"), titleField,
@@ -165,86 +140,47 @@ public class TaskController {
                 task.setDescription(descriptionArea.getText());
                 task.setDueDate(editDatePicker.getValue());
 
-                refreshAll();
+                service.refresh();
+                updateCounters();
+                taskList.refresh();
             }
         });
     }
 
-    // =====================================================
-    // FILTROS
-    // =====================================================
-
     @FXML
     private void filterAll() {
-        taskList.setItems(masterList);
+        taskList.setItems(service.getTasks());
     }
 
     @FXML
     private void filterTodo() {
-        taskList.setItems(masterList.filtered(t -> !t.isCompleted()));
+        taskList.setItems(
+                service.getTasks().filtered(t -> !t.isCompleted())
+        );
     }
 
     @FXML
     private void filterCompleted() {
-        taskList.setItems(masterList.filtered(Task::isCompleted));
+        taskList.setItems(
+                service.getTasks().filtered(Task::isCompleted)
+        );
     }
 
     @FXML
     private void filterOverdue() {
-        taskList.setItems(masterList.filtered(Task::isOverdue));
-    }
-
-    // =====================================================
-    // UTIL
-    // =====================================================
-
-    private void refreshAll() {
-        sortByDate();
-        updateCounters();
-        taskList.refresh();
-        saveTasks();
-    }
-
-    private void sortByDate() {
-        masterList.sort(
-                Comparator.comparing(
-                        Task::getDueDate,
-                        Comparator.nullsLast(LocalDate::compareTo)
-                )
+        taskList.setItems(
+                service.getTasks().filtered(Task::isOverdue)
         );
     }
 
     private void updateCounters() {
 
-        totalLabel.setText(String.valueOf(masterList.size()));
+        totalLabel.setText(String.valueOf(service.getTasks().size()));
         completedLabel.setText(String.valueOf(
-                masterList.stream().filter(Task::isCompleted).count()
+                service.getTasks().stream().filter(Task::isCompleted).count()
         ));
         overdueLabel.setText(String.valueOf(
-                masterList.stream().filter(Task::isOverdue).count()
+                service.getTasks().stream().filter(Task::isOverdue).count()
         ));
-    }
-
-    // =====================================================
-    // PERSISTÊNCIA
-    // =====================================================
-
-    private void saveTasks() {
-        try (ObjectOutputStream oos =
-                     new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
-
-            oos.writeObject(new ArrayList<>(masterList));
-
-        } catch (IOException ignored) {}
-    }
-
-    @SuppressWarnings("unchecked")
-    private void loadTasks() {
-        try (ObjectInputStream ois =
-                     new ObjectInputStream(new FileInputStream(FILE_NAME))) {
-
-            masterList.addAll((List<Task>) ois.readObject());
-
-        } catch (IOException | ClassNotFoundException ignored) {}
     }
 }

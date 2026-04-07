@@ -1,4 +1,4 @@
-package studyscheduler;
+package studyscheduler.app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/studyscheduler/view/main-view.fxml")
+                getClass().getResource("/view/main-view.fxml")
         );
 
         Scene scene = new Scene(loader.load(), 800, 600);

@@ -134,9 +134,9 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>com.acgm.studyscheduler/com.acgm.studyscheduler.HelloApplication</mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <launcher>studyscheduler.app</launcher>
+                            <jlinkZipName>studyscheduler.app</jlinkZipName>
+                            <jlinkImageName>studyscheduler.app</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
