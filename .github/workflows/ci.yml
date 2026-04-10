@@ -41,7 +41,7 @@ jobs:
       # 🔹 Build Windows
       - name: Build (Windows)
         if: runner.os == 'Windows'
-        run: mvnw.cmd clean compile
+        run: .\mvnw.cmd clean compile
 
       # 🔹 Lint Linux/macOS
       - name: Lint (Unix)
@@ -51,7 +51,7 @@ jobs:
       # 🔹 Lint Windows
       - name: Lint (Windows)
         if: runner.os == 'Windows'
-        run: mvnw.cmd checkstyle:check
+        run: .\mvnw.cmd checkstyle:check
 
       # 🔹 Testes Linux/macOS
       - name: Test (Unix)
@@ -61,4 +61,4 @@ jobs:
       # 🔹 Testes Windows
       - name: Test (Windows)
         if: runner.os == 'Windows'
-        run: mvnw.cmd test
+        run: .\.\mvnw.cmd test
