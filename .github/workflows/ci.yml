@@ -9,7 +9,6 @@ on:
 jobs:
   build:
 
-    # Matriz para rodar em Linux, Windows e macOS
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -29,33 +28,37 @@ jobs:
       - name: Cache do Maven
         uses: actions/cache@v3
         with:
-          path: |
-            ~/.m2/repository
-            !~/.m2/repository/com/acgm/studyscheduler
+          path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Build do projeto
-        run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            .\mvnw.cmd clean compile
-          else
-            ./mvnw clean compile
-          fi
+      # 🔹 Build Linux/macOS
+      - name: Build (Unix)
+        if: runner.os != 'Windows'
+        run: ./mvnw clean compile
 
-      - name: Executar lint (Checkstyle)
-        run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            .\mvnw.cmd checkstyle:check
-          else
-            ./mvnw checkstyle:check
-          fi
+      # 🔹 Build Windows
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        run: mvnw.cmd clean compile
 
-      - name: Executar testes automatizados
-        run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            .\mvnw.cmd test
-          else
-            ./mvnw test
-          fi
+      # 🔹 Lint Linux/macOS
+      - name: Lint (Unix)
+        if: runner.os != 'Windows'
+        run: ./mvnw checkstyle:check
+
+      # 🔹 Lint Windows
+      - name: Lint (Windows)
+        if: runner.os == 'Windows'
+        run: mvnw.cmd checkstyle:check
+
+      # 🔹 Testes Linux/macOS
+      - name: Test (Unix)
+        if: runner.os != 'Windows'
+        run: ./mvnw test
+
+      # 🔹 Testes Windows
+      - name: Test (Windows)
+        if: runner.os == 'Windows'
+        run: mvnw.cmd test
