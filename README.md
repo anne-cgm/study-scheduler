@@ -30,7 +30,7 @@ A proposta central é transformar a organização em um processo direto e funcio
 - Filtrar tarefas (pendentes, concluídas ou atrasadas)
 - Interface gráfica intuitiva
 
-<img width="397" height="311" alt="Captura de tela 2026-04-10 132000" src="https://github.com/user-attachments/assets/712d6958-b9d2-455b-8650-3bf83e048b30" />
+<img width="496" height="465" alt="Captura de tela 2026-04-10 132000" src="https://github.com/user-attachments/assets/712d6958-b9d2-455b-8650-3bf83e048b30" />
 
 
 ## Tecnologias Utilizadas 
