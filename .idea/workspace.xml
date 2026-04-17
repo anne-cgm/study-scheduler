@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010806ec-0a4f-4335-9049-d00f8b497da1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/service/CalendarIntegration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/util/DateUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/studyscheduler/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/studyscheduler/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/model/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +68,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Anne/bootcamp/StudyScheduler/.idea",
+    "last_opened_file_path": "C:/Users/Anne/GitHub/study-scheduler",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,6 +95,14 @@
       <recent name="com.acgm.studyscheduler" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="study-scheduler" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -114,7 +126,8 @@
       <workItem from="1775585561068" duration="157000" />
       <workItem from="1775585735128" duration="5645000" />
       <workItem from="1775761847307" duration="1887000" />
-      <workItem from="1775836932103" duration="5149000" />
+      <workItem from="1775836932103" duration="5787000" />
+      <workItem from="1776447246792" duration="2513000" />
     </task>
     <servers />
   </component>

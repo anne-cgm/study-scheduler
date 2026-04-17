@@ -59,4 +59,10 @@ public class Task implements Serializable {
                 dueDate.isBefore(LocalDate.now()) &&
                 !completed;
     }
+
+    public String getFormattedDueDate() {
+        return dueDate != null
+                ? dueDate.toString().replace("-", "") + "T120000"
+                : "20260420T120000";
+    }
 }
