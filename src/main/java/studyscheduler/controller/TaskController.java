@@ -5,6 +5,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import studyscheduler.model.Task;
 import studyscheduler.service.TaskService;
+import studyscheduler.service.CalendarIntegration;
+import studyscheduler.util.DateUtil;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TaskController {
 
@@ -83,7 +88,43 @@ public class TaskController {
                     updateCounters();
                 });
 
-                setContextMenu(new ContextMenu(edit, delete));
+                MenuItem calendar = new MenuItem("Adicionar ao Google Calendar");
+
+                calendar.setOnAction(e -> {
+
+                    if (task.getDueDate() == null) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Aviso");
+                        alert.setHeaderText(null);
+                        alert.setContentText("A tarefa precisa ter uma data.");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    LocalDateTime startDateTime = LocalDateTime.now();
+
+                    LocalDateTime endDateTime = task.getDueDate().atTime(23, 59);
+
+                    if (task.getDueDate().isBefore(LocalDate.now())) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Data inválida");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Não é possível adicionar tarefas com data passada ao calendário.");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    String description = task.getDescription();
+
+                    CalendarIntegration.openEvent(
+                            task.getTitle(),
+                            description,
+                            DateUtil.format(startDateTime),
+                            DateUtil.format(endDateTime)
+                    );
+                });
+
+                setContextMenu(new ContextMenu(edit, delete, calendar));
                 setGraphic(checkBox);
             }
         });
