@@ -2,97 +2,280 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="studyscheduler.controller.TaskController"
             stylesheets="@../style/style.css"
-            fx:controller="studyscheduler.controller.TaskController">
+            prefWidth="900"
+            prefHeight="700">
+
+    <!-- ========================= -->
+    <!-- TOP / WEATHER -->
+    <!-- ========================= -->
+
+    <top>
+
+        <HBox alignment="CENTER_RIGHT"
+              styleClass="weather-container">
+
+            <HBox styleClass="weather-widget"
+                  spacing="10"
+                  alignment="CENTER">
+
+                <!-- WEATHER ICON -->
+                <Label fx:id="weatherIconLabel"
+                       text="☁️"
+                       styleClass="weather-icon"/>
+
+                <!-- WEATHER INFO -->
+                <VBox spacing="2"
+                      alignment="CENTER_LEFT">
+
+                    <HBox spacing="5"
+                          alignment="CENTER_LEFT">
+
+                        <Label fx:id="weatherStatusLabel"
+                               text="Nublado"
+                               styleClass="weather-status"/>
+
+                        <Label fx:id="weatherTempLabel"
+                               text="24°C"
+                               styleClass="weather-temp"/>
+
+                    </HBox>
+
+                </VBox>
+
+                <!-- DIVIDER -->
+                <Region styleClass="weather-divider"
+                        prefWidth="1"
+                        prefHeight="20"/>
+
+                <!-- TIP -->
+                <HBox spacing="5"
+                      alignment="CENTER_LEFT">
+
+                    <Label text="💡"
+                           styleClass="weather-tip-icon"/>
+
+                    <Label fx:id="weatherTipLabel"
+                           text="Bom momento para revisões"
+                           styleClass="weather-tip"/>
+
+                </HBox>
+
+            </HBox>
+
+            <padding>
+
+                <Insets top="12"
+                        right="16"
+                        bottom="12"
+                        left="16"/>
+
+            </padding>
+
+        </HBox>
+
+    </top>
+
+    <!-- ========================= -->
+    <!-- CENTER -->
+    <!-- ========================= -->
 
     <center>
-        <VBox spacing="30" alignment="TOP_CENTER" style="-fx-padding: 40;">
 
-            <!-- TÍTULO -->
-            <Label text="STUDY SCHEDULER"
-                   styleClass="main-title"/>
+        <VBox styleClass="main-container"
+              spacing="20"
+              alignment="TOP_CENTER">
 
-            <!-- CARDS -->
-            <HBox spacing="20" alignment="CENTER">
+            <padding>
 
-                <VBox spacing="5" alignment="CENTER" styleClass="card">
-                    <Label fx:id="totalLabel" text="0"/>
-                    <Label text="TOTAL"/>
+                <Insets top="20"
+                        right="16"
+                        bottom="20"
+                        left="16"/>
+
+            </padding>
+
+            <!-- TITLE -->
+            <Label text="Study Scheduler"
+                   styleClass="title"/>
+
+            <!-- ========================= -->
+            <!-- STATS -->
+            <!-- ========================= -->
+
+            <HBox spacing="12"
+                  alignment="CENTER">
+
+                <!-- TOTAL -->
+                <VBox styleClass="stat-card"
+                      alignment="CENTER"
+                      prefWidth="150"
+                      onMouseClicked="#filterAll">
+
+                    <Label fx:id="totalLabel"
+                           text="0"
+                           styleClass="stat-number"/>
+
+                    <Label text="TOTAL"
+                           styleClass="stat-label"/>
+
+                    <padding>
+
+                        <Insets top="12"
+                                right="16"
+                                bottom="12"
+                                left="16"/>
+
+                    </padding>
+
                 </VBox>
 
-                <VBox spacing="5" alignment="CENTER" styleClass="card">
-                    <Label fx:id="completedLabel" text="0"/>
-                    <Label text="CONCLUÍDAS"/>
+                <!-- COMPLETED -->
+                <VBox styleClass="stat-card-completed"
+                      alignment="CENTER"
+                      prefWidth="150"
+                      onMouseClicked="#filterCompleted">
+
+                    <Label fx:id="completedLabel"
+                           text="0"
+                           styleClass="stat-number-completed"/>
+
+                    <Label text="CONCLUÍDAS"
+                           styleClass="stat-label"/>
+
+                    <padding>
+
+                        <Insets top="12"
+                                right="16"
+                                bottom="12"
+                                left="16"/>
+
+                    </padding>
+
                 </VBox>
 
-                <VBox spacing="5" alignment="CENTER" styleClass="card">
-                    <Label fx:id="overdueLabel" text="0"/>
-                    <Label text="ATRASADAS"/>
+                <!-- OVERDUE -->
+                <VBox styleClass="stat-card-overdue"
+                      alignment="CENTER"
+                      prefWidth="150"
+                      onMouseClicked="#filterOverdue">
+
+                    <Label fx:id="overdueLabel"
+                           text="0"
+                           styleClass="stat-number-overdue"/>
+
+                    <Label text="ATRASADAS"
+                           styleClass="stat-label"/>
+
+                    <padding>
+
+                        <Insets top="12"
+                                right="16"
+                                bottom="12"
+                                left="16"/>
+
+                    </padding>
+
                 </VBox>
 
             </HBox>
 
-            <!-- ADICIONAR TAREFA (TUDO NA MESMA LINHA) -->
-            <HBox spacing="15" alignment="CENTER">
+            <!-- ========================= -->
+            <!-- ADD TASK -->
+            <!-- ========================= -->
 
-                <TextField fx:id="taskField"
+            <HBox styleClass="add-task-form"
+                  spacing="8"
+                  alignment="CENTER_LEFT">
+
+                <TextField fx:id="taskTitleField"
                            promptText="Adicionar tarefa"
-                           prefWidth="220"
-                           prefHeight="45"/>
+                           styleClass="input-task-title"
+                           HBox.hgrow="ALWAYS"/>
 
-                <TextField fx:id="descriptionField"
-                           promptText="Adicionar descrição (opcional)"
-                           prefWidth="180"
-                           prefHeight="45"/>
+                <TextField fx:id="taskDescriptionField"
+                           promptText="Descrição (opcional)"
+                           styleClass="input-task-description"
+                           HBox.hgrow="ALWAYS"/>
 
-                <DatePicker fx:id="datePicker"
-                            promptText="Adicionar data de entrega"
-                            prefHeight="45"/>
+                <DatePicker fx:id="taskDatePicker"
+                            promptText="Data"
+                            styleClass="input-date"
+                            prefWidth="135"/>
 
-                <Button text="+"
-                        prefWidth="50"
-                        prefHeight="45"
-                        onAction="#handleAddTask"/>
+                <Button fx:id="addButton"
+                        text="Adicionar"
+                        styleClass="btn-add"
+                        onAction="#handleAddTask">
 
-            </HBox>
+                    <graphic>
 
-            <!-- FILTROS -->
-            <HBox spacing="15" alignment="CENTER">
+                        <Label text="+"
+                               styleClass="btn-icon"/>
 
-                <Button text="Todas"
-                        styleClass="tag-button"
-                        onAction="#filterAll"/>
+                    </graphic>
 
-                <Button text="Não concluídas"
-                        styleClass="tag-todo"
-                        onAction="#filterTodo"/>
+                </Button>
 
-                <Button text="Concluídas"
-                        styleClass="tag-success"
-                        onAction="#filterCompleted"/>
+                <padding>
 
-                <Button text="Atrasadas"
-                        styleClass="tag-danger"
-                        onAction="#filterOverdue"/>
+                    <Insets top="12"
+                            right="12"
+                            bottom="12"
+                            left="12"/>
+
+                </padding>
 
             </HBox>
 
-            <!-- LISTA -->
-            <VBox prefWidth="700"
-                  prefHeight="420"
-                  style="-fx-background-color: white;
-                         -fx-background-radius: 20;
-                         -fx-padding: 25;">
+            <!-- ========================= -->
+            <!-- TASK HEADER -->
+            <!-- ========================= -->
 
-                <ListView fx:id="taskList"
-                          prefHeight="380"/>
+            <HBox spacing="8"
+                  alignment="CENTER_LEFT">
 
-            </VBox>
+                <Label text="Suas Tarefas"
+                       styleClass="task-list-header"/>
+
+                <Label fx:id="taskCountLabel"
+                       text="0"
+                       styleClass="task-count-badge"/>
+
+            </HBox>
+
+            <!-- ========================= -->
+            <!-- TASK LIST -->
+            <!-- ========================= -->
+
+            <ScrollPane styleClass="task-list-scroll"
+                        fitToWidth="true"
+                        VBox.vgrow="ALWAYS">
+
+                <VBox fx:id="taskListContainer"
+                      spacing="12"
+                      styleClass="task-list">
+
+                    <padding>
+
+                        <Insets top="4"
+                                right="4"
+                                bottom="4"
+                                left="4"/>
+
+                    </padding>
+
+                </VBox>
+
+            </ScrollPane>
 
         </VBox>
+
     </center>
 
 </BorderPane>

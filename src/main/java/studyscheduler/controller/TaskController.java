@@ -1,186 +1,254 @@
 package studyscheduler.controller;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import studyscheduler.model.Task;
+import studyscheduler.model.Weather;
 import studyscheduler.service.TaskService;
+import studyscheduler.service.WeatherService;
 
 public class TaskController {
 
-    @FXML private TextField taskField;
-    @FXML private TextField descriptionField;
-    @FXML private DatePicker datePicker;
-    @FXML private ListView<Task> taskList;
+    // INPUTS
+    @FXML private TextField taskTitleField;
+    @FXML private TextField taskDescriptionField;
+    @FXML private DatePicker taskDatePicker;
+
+    // LISTA
+    @FXML private VBox taskListContainer;
+
+    // COUNTERS
     @FXML private Label totalLabel;
     @FXML private Label completedLabel;
     @FXML private Label overdueLabel;
+    @FXML private Label taskCountLabel;
 
+    // WEATHER
+    @FXML private Label weatherIconLabel;
+    @FXML private Label weatherStatusLabel;
+    @FXML private Label weatherTempLabel;
+    @FXML private Label weatherTipLabel;
+
+    // SERVICE (ÚNICO)
     private final TaskService service = new TaskService();
 
     @FXML
     public void initialize() {
-        taskList.setItems(service.getTasks());
-        configureCells();
+        service.setFilter("all");
+        renderTasks();
         updateCounters();
+        loadWeather();
     }
 
-    private void configureCells() {
+    // =========================
+    // WEATHER
+    // =========================
 
-        taskList.setCellFactory(lv -> new ListCell<>() {
+    private void loadWeather() {
+        try {
+            WeatherService weatherService = new WeatherService();
+            Weather clima = weatherService.buscarClima();
 
-            private final CheckBox checkBox = new CheckBox();
+            weatherStatusLabel.setText(clima.getDescricao());
+            weatherTempLabel.setText(Math.round(clima.getTemperatura()) + "°C");
+            weatherTipLabel.setText(clima.getMensagem());
 
-            {
-                checkBox.setOnAction(e -> {
-                    Task task = getItem();
-                    if (task != null) {
-                        task.setCompleted(checkBox.isSelected());
-                        service.refresh();
-                        updateCounters();
-                        taskList.refresh();
-                    }
-                });
+            String desc = clima.getDescricao().toLowerCase();
+
+            if (desc.contains("chuva")) {
+                weatherIconLabel.setText("🌧");
+            } else if (desc.contains("nuv")) {
+                weatherIconLabel.setText("☁");
+            } else {
+                weatherIconLabel.setText("☀");
             }
 
-            @Override
-            protected void updateItem(Task task, boolean empty) {
-                super.updateItem(task, empty);
-
-                if (empty || task == null) {
-                    setGraphic(null);
-                    setContextMenu(null);
-                    return;
-                }
-
-                StringBuilder text = new StringBuilder(task.getTitle());
-
-                if (task.getDueDate() != null) {
-                    text.append(" - ").append(task.getDueDate());
-                }
-
-                if (task.getDescription() != null && !task.getDescription().isBlank()) {
-                    text.append("\n").append(task.getDescription());
-                }
-
-                checkBox.setText(text.toString());
-                checkBox.setSelected(task.isCompleted());
-
-                if (task.isCompleted()) {
-                    checkBox.setStyle("-fx-text-fill: green; -fx-strikethrough: true;");
-                } else if (task.isOverdue()) {
-                    checkBox.setStyle("-fx-text-fill: red;");
-                } else {
-                    checkBox.setStyle("");
-                }
-
-                MenuItem edit = new MenuItem("Editar");
-                edit.setOnAction(e -> openEditDialog(task));
-
-                MenuItem delete = new MenuItem("Excluir");
-                delete.setOnAction(e -> {
-                    service.removeTask(task);
-                    updateCounters();
-                });
-
-                setContextMenu(new ContextMenu(edit, delete));
-                setGraphic(checkBox);
-            }
-        });
+        } catch (Exception e) {
+            weatherStatusLabel.setText("Clima indisponível");
+            weatherTempLabel.setText("--°C");
+            weatherTipLabel.setText("Não foi possível carregar o clima");
+            weatherIconLabel.setText("☁");
+        }
     }
+
+    // =========================
+    // ADD TASK
+    // =========================
 
     @FXML
     private void handleAddTask() {
 
-        String title = taskField.getText();
+        String title = taskTitleField.getText();
+
         if (title == null || title.isBlank()) return;
 
         service.addTask(
                 title,
-                descriptionField.getText(),
-                datePicker.getValue()
+                taskDescriptionField.getText(),
+                taskDatePicker.getValue()
         );
 
-        taskField.clear();
-        descriptionField.clear();
-        datePicker.setValue(null);
+        taskTitleField.clear();
+        taskDescriptionField.clear();
+        taskDatePicker.setValue(null);
 
+        renderTasks();
         updateCounters();
     }
 
-    private void openEditDialog(Task task) {
+    // =========================
+    // RENDER
+    // =========================
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Editar tarefa");
+    private void renderTasks() {
 
-        ButtonType saveButton =
-                new ButtonType("Salvar", ButtonBar.ButtonData.OK_DONE);
+        taskListContainer.getChildren().clear();
 
-        dialog.getDialogPane().getButtonTypes()
-                .addAll(saveButton, ButtonType.CANCEL);
+        for (Task task : service.getTasks()) {
+            taskListContainer.getChildren().add(createTaskCard(task));
+        }
+    }
 
-        TextField titleField = new TextField(task.getTitle());
-        TextArea descriptionArea =
-                new TextArea(task.getDescription() == null ? "" : task.getDescription());
-        DatePicker editDatePicker = new DatePicker(task.getDueDate());
+    // =========================
+    // TASK CARD
+    // =========================
 
-        VBox content = new VBox(12,
-                new Label("Título"), titleField,
-                new Label("Descrição"), descriptionArea,
-                new Label("Data de entrega"), editDatePicker
+    private HBox createTaskCard(Task task) {
+
+        CheckBox completedBox = new CheckBox();
+        completedBox.setSelected(task.isCompleted());
+
+        completedBox.setOnAction(e -> {
+            task.setCompleted(completedBox.isSelected());
+            service.refresh();
+            renderTasks();
+            updateCounters();
+        });
+
+        String desc = task.getDescription() == null ? "" : task.getDescription();
+
+        Label title = new Label(
+                desc.isBlank()
+                        ? task.getTitle()
+                        : task.getTitle() + " - " + desc
         );
 
-        content.setStyle("-fx-padding: 20;");
-        dialog.getDialogPane().setContent(content);
+        Label date = new Label(
+                task.getDueDate() == null ? "Sem data" : task.getDueDate().toString()
+        );
 
-        dialog.showAndWait().ifPresent(response -> {
-            if (response == saveButton && !titleField.getText().isBlank()) {
+        HBox card = new HBox(15);
+        card.setAlignment(Pos.CENTER_LEFT);
 
-                task.setTitle(titleField.getText().trim());
-                task.setDescription(descriptionArea.getText());
-                task.setDueDate(editDatePicker.getValue());
+        card.getChildren().addAll(completedBox, title, date);
 
-                service.refresh();
-                updateCounters();
-                taskList.refresh();
-            }
-        });
+        if (task.isCompleted()) {
+            card.getStyleClass().add("task-item-completed");
+        } else if (task.isOverdue()) {
+            card.getStyleClass().add("task-item-overdue");
+        } else {
+            card.getStyleClass().add("task-item");
+        }
+
+        createContextMenu(task, card);
+
+        return card;
     }
+
+    // =========================
+    // CONTEXT MENU
+    // =========================
+
+    private void createContextMenu(Task task, HBox card) {
+
+        ContextMenu menu = new ContextMenu();
+
+        MenuItem edit = new MenuItem("Editar");
+        MenuItem delete = new MenuItem("Excluir");
+
+        edit.setOnAction(e -> editTask(task));
+
+        delete.setOnAction(e -> {
+            service.removeTask(task);
+            renderTasks();
+            updateCounters();
+        });
+
+        menu.getItems().addAll(edit, delete);
+
+        card.setOnContextMenuRequested(e ->
+                menu.show(card, e.getScreenX(), e.getScreenY())
+        );
+    }
+
+    // =========================
+    // EDIT
+    // =========================
+
+    private void editTask(Task task) {
+
+        taskTitleField.setText(task.getTitle());
+        taskDescriptionField.setText(task.getDescription());
+
+        if (task.getDueDate() != null) {
+            taskDatePicker.setValue(task.getDueDate());
+        }
+
+        service.removeTask(task);
+
+        renderTasks();
+        updateCounters();
+    }
+
+    // =========================
+    // FILTERS
+    // =========================
 
     @FXML
     private void filterAll() {
-        taskList.setItems(service.getTasks());
-    }
-
-    @FXML
-    private void filterTodo() {
-        taskList.setItems(
-                service.getTasks().filtered(t -> !t.isCompleted())
-        );
+        service.setFilter("all");
+        renderTasks();
+        updateCounters();
     }
 
     @FXML
     private void filterCompleted() {
-        taskList.setItems(
-                service.getTasks().filtered(Task::isCompleted)
-        );
+        service.setFilter("completed");
+        renderTasks();
+        updateCounters();
     }
 
     @FXML
     private void filterOverdue() {
-        taskList.setItems(
-                service.getTasks().filtered(Task::isOverdue)
-        );
+        service.setFilter("overdue");
+        renderTasks();
+        updateCounters();
     }
+
+    @FXML
+    private void filterTodo() {
+        service.setFilter("todo");
+        renderTasks();
+        updateCounters();
+    }
+
+    // =========================
+    // COUNTERS
+    // =========================
 
     private void updateCounters() {
 
-        totalLabel.setText(String.valueOf(service.getTasks().size()));
-        completedLabel.setText(String.valueOf(
-                service.getTasks().stream().filter(Task::isCompleted).count()
-        ));
-        overdueLabel.setText(String.valueOf(
-                service.getTasks().stream().filter(Task::isOverdue).count()
-        ));
+        int total = service.getAllTasks().size();
+        long completed = service.countCompletedTasks();
+        long overdue = service.countOverdueTasks();
+        int visible = service.getTasks().size();
+
+        totalLabel.setText(String.valueOf(total));
+        completedLabel.setText(String.valueOf(completed));
+        overdueLabel.setText(String.valueOf(overdue));
+        taskCountLabel.setText(String.valueOf(visible));
     }
 }
