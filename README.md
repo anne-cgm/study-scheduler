@@ -1,6 +1,8 @@
 # StudyScheduler 
 Aplicação desktop desenvolvida com JavaFX que permite organizar tarefas acadêmicas, acompanhar prazos e filtrar atividades de forma simples, objetiva e funcional. 
 
+- **Aplicação Publicada:** https://www.jdeploy.com/~study-scheduler-annecgm
+
 ## Descrição do Problema Real 
 
 A organização acadêmica é um desafio constante para muitos estudantes. A dificuldade em visualizar prioridades, prazos e demandas pode gerar sensação de sobrecarga, perda de foco e queda de produtividade. 
@@ -17,6 +19,17 @@ Ao priorizar clareza, objetividade e usabilidade, o sistema permite que o usuár
 
 A proposta central é transformar a organização em um processo direto e funcional, contribuindo para maior produtividade, previsibilidade e redução da sobrecarga mental associada à desorganização. 
 
+## Integração com API Pública
+
+O StudyScheduler utiliza integração com a API OpenWeather para exibir informações climáticas em tempo real diretamente na interface da aplicação.
+
+A proposta dessa funcionalidade é agregar contexto ao planejamento de estudos. Condições climáticas podem influenciar produtividade, concentração e organização da rotina. A aplicação utiliza os dados da API para fornecer sugestões rápidas ao usuário, como momentos favoráveis para revisão, leitura ou descanso.
+
+A integração é realizada através de requisições HTTP GET, consumindo dados públicos de clima e exibindo:
+- temperatura atual
+- condição climática
+- mensagens contextuais para estudos
+
 ## Público-Alvo 
 - Estudantes do ensino médio
 - Universitários
@@ -25,36 +38,80 @@ A proposta central é transformar a organização em um processo direto e funcio
 
 ## Funcionalidades Principais 
 - Cadastro de tarefas
+- Edição e remoção de tarefas
 - Visualização da lista de tarefas
 - Marcar tarefas como concluídas
-- Filtrar tarefas (pendentes, concluídas ou atrasadas)
+- Organização automática por prioridade/data
+- Filtrar tarefas (todas, concluídas ou atrasadas)
+- Persistência de dados
+- Integração com API de clima
+- Widget climático em tempo real
 - Interface gráfica intuitiva
+- Menu contextual com clique direito
+- Deploy desktop com JDeploy
 
 <img width="717" height="496" alt="Captura de tela 2026-04-10 135321" src="https://github.com/user-attachments/assets/85fa6120-f21f-4181-b263-0ba616789d02" />
 
 ## Tecnologias Utilizadas 
 - Java 21 - linguagem principal do projeto
 - JavaFX 21 – criação da interface gráfica
+- CSS – estilização da interface
 - Maven – gerenciamento de dependências e build
 - JUnit 5 – testes automatizados
 - Checkstyle – análise estática / lint
 - GitHub Actions – integração contínua e CI
+- OpenWeather API – dados climáticos
+- Gson – manipulação de JSON
+- JDeploy – publicação desktop
 
 ## Instruções de Instalação 
+
+### Instalação Rápida (Aplicação Publicada)
+- A aplicação pode ser instalada diretamente através do JDeploy: [Study Scheduler](https://www.jdeploy.com/~study-scheduler-annecgm)
+- Pelo terminal:
+#### 1. Instalar o Node.js:
+O JDeploy utiliza o Node.js para instalar e executar a aplicação. 
+- Para verificar se você já tem Node.js, digite no terminal:<br>
+node -v <br>
+- Depois digite:<br>
+npm -v <br>
+- O resultado esperado é algo parecido com: <br>
+v24.0.0 <br>
+11.0.0 <br>
+- Caso não apareça, acesse o [site](https://nodejs.org/pt-br) e baixe o instalador para o seu sistema, execute o instalador e siga os passos padrões (Next → Next → Finish)
+- Após instalar, feche e abra o terminal novamente e rode:<br>
+node -v<br>
+npm -v<br>
+
+#### 2. Instalar o JDeploy
+- No terminal: <br>
+npm install -g jdeploy@latest <br>
+
+#### 3. Instalar e Executar o StudyScheduler
+- Execute no terminal: <br>
+npm install -g study-scheduler-annecgm
+- Depois: <br>
+study-scheduler
+- Resultado esperado: A janela do StudyScheduler será exibida na tela
+- Problemas comuns:
+1. comando não reconhecido: feche e abra o terminal novamente
+2. erro relacionado ao JavaFX: reinstale a aplicação
+3. erro de permissões no Linux/macOS: execute o terminal como administrador ou utilize sudo
 
 ### 1 - Instalar o Java 21 
 O projeto foi desenvolvido em Java 21, então essa versão é necessária. 
 - Como verificar se você já tem Java:
 1. **Windows:** pressione Win + R, digite cmd e aperte Enter / **macOS/Linux:** abra o aplicativo “Terminal”
 2. Digite:<br>
-java -version.
+java -version
 - O resultado esperado é algo como: java version "21"
 - Caso não apareça, acesse o [site](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html) e baixe o instalador para o seu sistema:
 1. **Windows:** .exe
 2. **macOS:** .dmg
 3. **Linux:** .tar.gz ou gerenciador de pacotes
 - Execute o instalador e siga os passos padrão (Next → Next → Finish)
-- Após instalar, feche e abra o terminal novamente e rode: java -version
+- Após instalar, feche e abra o terminal novamente e rode: <br>
+java -version
 
 ### 2 - Instalar o Git 
 O Git é necessário para baixar o projeto. 
@@ -119,7 +176,9 @@ mvnw.cmd test
 1. Criação de tarefas
 2. Marcar tarefa como concluída
 3. Verificar se tarefa está atrasada
-4. Comportamento com data nula
+4. Persistência básica
+5. Integração com API de clima
+6. Fluxo de comunicação HTTP
 
 ## Instruções para Rodar o Lint  
 
@@ -138,7 +197,7 @@ mvnw.cmd checkstyle:check
 
 ## Versão Atual 
 
-**1.0.0** – versão inicial funcional (MAJOR.MINOR.PATCH) 
+**1.0.7** – versão com integração de API climática, reformulação visual da interface e deploy desktop via JDeploy
 
 ## Autor 
 
