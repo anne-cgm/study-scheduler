@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="010806ec-0a4f-4335-9049-d00f8b497da1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/model/Weather.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/service/WeatherService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/studyscheduler/model/WeatherTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/studyscheduler/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/studyscheduler/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/studyscheduler/service/TaskService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data/tasks.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/tasks.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/style/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/view/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/main-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +54,7 @@
     "Application.Testando.executor": "Run",
     "Batch.mvnw.executor": "Run",
     "JUnit.TaskTest.executor": "Run",
+    "JUnit.WeatherTest.deveBuscarClimaComSucesso.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -90,16 +85,53 @@
       <recent name="C:\Users\Anne\bootcamp\StudyScheduler\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\annec\GitHub\study-scheduler\src\main\resources\data" />
       <recent name="C:\Users\Anne\bootcamp\study-scheduler\src\main\resources\data" />
       <recent name="C:\Users\Anne\bootcamp\StudyScheduler\src\main\resources\data" />
       <recent name="C:\Users\Anne\bootcamp\StudyScheduler\src\main\resources\view" />
       <recent name="C:\Users\Anne\bootcamp\StudyScheduler\src\main\resources\style" />
-      <recent name="C:\Users\Anne\bootcamp\StudyScheduler\src\main\resources" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="studyscheduler" />
       <recent name="com.acgm.studyscheduler" />
     </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="studyscheduler.app.Main" />
+      <module name="studyscheduler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="studyscheduler.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WeatherTest.deveBuscarClimaComSucesso" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="studyscheduler" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="studyscheduler.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="studyscheduler.model" />
+      <option name="MAIN_CLASS_NAME" value="studyscheduler.model.WeatherTest" />
+      <option name="METHOD_NAME" value="deveBuscarClimaComSucesso" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.WeatherTest.deveBuscarClimaComSucesso" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -125,7 +157,7 @@
       <workItem from="1775585735128" duration="5645000" />
       <workItem from="1775761847307" duration="1887000" />
       <workItem from="1775836932103" duration="5149000" />
-      <workItem from="1778531786335" duration="23326000" />
+      <workItem from="1778531786335" duration="25063000" />
     </task>
     <servers />
   </component>
