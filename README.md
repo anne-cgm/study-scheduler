@@ -50,7 +50,7 @@ A integração é realizada através de requisições HTTP GET, consumindo dados
 - Menu contextual com clique direito
 - Deploy desktop com JDeploy
 
-<img width="717" height="496" alt="Captura de tela 2026-04-10 135321" src="https://github.com/user-attachments/assets/85fa6120-f21f-4181-b263-0ba616789d02" />
+<img width="594" height="447" alt="Captura de tela 2026-05-15 144714" src="https://github.com/user-attachments/assets/29c28199-90a6-405f-9cdb-025d6f4075f3" />
 
 ## Tecnologias Utilizadas 
 - Java 21 - linguagem principal do projeto
@@ -66,9 +66,9 @@ A integração é realizada através de requisições HTTP GET, consumindo dados
 
 ## Instruções de Instalação 
 
-### Instalação Rápida (Aplicação Publicada)
+### Extra: Instalação Rápida (Aplicação Publicada)
 - A aplicação pode ser instalada diretamente através do JDeploy: [Study Scheduler](https://www.jdeploy.com/~study-scheduler-annecgm)
-- Pelo terminal:
+- Ou pode ser instalada e aberta pelo terminal (**Windows:** pressione Win + R, digite cmd e aperte Enter / **macOS/Linux:** abra o aplicativo “Terminal”):
 #### 1. Instalar o Node.js:
 O JDeploy utiliza o Node.js para instalar e executar a aplicação. 
 - Para verificar se você já tem Node.js, digite no terminal:<br>
@@ -86,6 +86,8 @@ npm -v<br>
 #### 2. Instalar o JDeploy
 - No terminal: <br>
 npm install -g jdeploy@latest <br>
+- Resultado esperado: “added packages” sem mensagens de erro
+
 
 #### 3. Instalar e Executar o StudyScheduler
 - Execute no terminal: <br>
@@ -101,8 +103,7 @@ study-scheduler
 ### 1 - Instalar o Java 21 
 O projeto foi desenvolvido em Java 21, então essa versão é necessária. 
 - Como verificar se você já tem Java:
-1. **Windows:** pressione Win + R, digite cmd e aperte Enter / **macOS/Linux:** abra o aplicativo “Terminal”
-2. Digite:<br>
+1. Abra o terminal e digite:<br>
 java -version
 - O resultado esperado é algo como: java version "21"
 - Caso não apareça, acesse o [site](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html) e baixe o instalador para o seu sistema:
